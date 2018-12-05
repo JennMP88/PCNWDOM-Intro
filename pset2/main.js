@@ -90,9 +90,10 @@ const render = (searchValue = "") => {
   // let combinedHTML = '';
 
   const combinedHTML = playlist.songs
-    .filter(song => song.name.includes(searchValue))
+    .filter(song => song.name.toLowerCase().includes(searchValue.toLowerCase()))
     .map(song => objectToHTML(song))
     .join('')
+
     
   
   // for (let i = 0; i < playlist.songs.length; i++) {
