@@ -69,3 +69,60 @@ const playlist = {
     }
   ]
 };
+// {
+//   name: 'thank u, next',
+//   artists: ['Ariana Grande'],
+//   image: 'https://i.scdn.co/image/3492042deca1ed9a02e6d46ebe58807bbf8d2a51'
+// },
+
+
+//-----------------RENDER
+const render = (searchValue = "") => {
+  console.log(searchValue)
+  const title = document.querySelector('h1');
+  title.innerText = playlist.name;
+
+  const desc = document.querySelector('.lead');
+  desc.innerText = playlist.description;
+
+  const song_list = document.querySelector('.song-list');
+
+  // let combinedHTML = '';
+
+  const combinedHTML = playlist.songs
+    .filter(song => song.name.includes(searchValue))
+    .map(song => objectToHTML(song))
+    .join('')
+    
+  
+  // for (let i = 0; i < playlist.songs.length; i++) {
+  //   combinedHTML += objectToHTML(playlist.songs[i]);
+  // }
+
+  song_list.innerHTML = combinedHTML;
+}
+
+//-----------------EVENT LISTENER
+document.addEventListener("DOMContentLoaded", /*render)*/() => render(''));
+
+// document.addEventListener("DOMContentLoaded", function(event) { 
+//   console.log("ready!")
+//   render();
+// });
+function objectToHTML (song) {
+  return `<div class='row mb-2'>
+  <div class='col-1'>
+    <img src="${song.image}" class="rounded" style='width: 50px; height: 50px;'>
+  </div>
+  <div class='col-11'>
+    <p class='mb-0 mt-1 song-name'>${song.name}</p>
+    <p class='my-0 song-artists'>${song.artists}</p>
+  </div>
+</div>`;
+}
+
+function getTextInput() {
+  const searchValue = document.querySelector('.search').value
+
+  render(searchValue)
+} 
